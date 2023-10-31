@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Sale</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+</head>
+<body>
+    <h1>Add Sale</h1>
+    <form method="POST" action="{% url 'add_sale' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="product" class="form-label">Product</label>
+            <select name="product" id="product" class="form-select">
+                {% for product in products %}
+                <option value="{{ product.productId }}">{{ product.productName }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="quantity" class="form-label">Quantity</label>
+            <input type="number" name="quantity" id="quantity" class="form-control" min="1" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="customerName" class="form-label">Customer Name</label>
+            <input type="text" name="customerName" id="customerName" class="form-control" min="1" required>
+        </div>
+        <div class="mb-3">
+            <label for="customerTin" class="form-label">Customer Tin</label>
+            <input type="text" max="10" name="customerTin" id="customerTin" class="form-control" min="1" required>
+        </div>
+        <button type="submit" class="btn btn-success">Add Sale</button>
+    </form>
+    <div class="d-flex justify-content-center">
+        <a href="{% url 'sales_list' %}" class="btn btn-primary mr-2">Back To List</a>
+    </div> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
